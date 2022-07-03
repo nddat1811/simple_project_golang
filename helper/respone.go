@@ -4,7 +4,6 @@ import (
 	"strings"
 )
 
-
 //Response is used for static shape json return
 type Response struct {
 	Status  bool        `json:"status"`
@@ -12,6 +11,7 @@ type Response struct {
 	Error   interface{} `json:"errors"`
 	Data    interface{} `json:"data"`
 }
+
 //EmptyObj struct is used when data doesn't want to be null on json
 type EmptyObj struct{}
 
@@ -28,7 +28,7 @@ func BuildResponse(status bool, message string, data interface{}) Response {
 }
 
 //BuildErrorResponse method is to inject data value to dynamic failed response
-func BuildErrorResponse(message string, err string, data interface{}) Response{
+func BuildErrorResponse(message string, err string, data interface{}) Response {
 	splittedError := strings.Split(err, "\n")
 	res := Response{
 		Status:  false,

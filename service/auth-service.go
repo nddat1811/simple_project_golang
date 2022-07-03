@@ -2,6 +2,7 @@ package service
 
 import (
 	"log"
+
 	"github.com/mashingan/smapping"
 	"github.com/nddat1811/simple_project_golang/dto"
 	"github.com/nddat1811/simple_project_golang/entity"
@@ -11,7 +12,7 @@ import (
 
 //AuthService is a contract about sth that this service can do
 type AuthService interface {
-	VerifyCredential(email string, password string) interface {}
+	VerifyCredential(email string, password string) interface{}
 	CreateUser(user dto.RegisterDTO) entity.User
 	FindByEmail(email string) entity.User
 	IsDuplicateEmail(email string) bool
@@ -29,7 +30,7 @@ func NewAuthService(userRep repository.UserRepository) AuthService {
 }
 
 func (service *authService) VerifyCredential(email string, password string) interface{} {
-	res:= service.userReposity.VerifyCredential(email, password)
+	res := service.userReposity.VerifyCredential(email, password)
 	if v, ok := res.(entity.User); ok {
 		comparedPassword := comparedPassword(v.Password, []byte(password))
 		if v.Email == email && comparedPassword {
@@ -56,7 +57,7 @@ func (service *authService) FindByEmail(email string) entity.User {
 }
 
 func (service *authService) IsDuplicateEmail(email string) bool {
-	res:= service.userReposity.IsDuplicateEmail(email) 
+	res := service.userReposity.IsDuplicateEmail(email)
 	return !(res.Error == nil)
 }
 
@@ -69,4 +70,3 @@ func comparedPassword(hashedPwd string, plainPassword []byte) bool {
 	}
 	return true
 }
-
